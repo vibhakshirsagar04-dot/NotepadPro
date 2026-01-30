@@ -295,6 +295,9 @@ export default function LoginPage() {
                                 </div>
                             </div>
 
+
+                            
+
                             {/* Remember Me & Forgot Password */}
                             <div className="flex items-center justify-between opacity-0 animate-fadeInUp delay-300">
                 
