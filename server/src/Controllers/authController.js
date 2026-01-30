@@ -4,11 +4,18 @@ import bcrypt from "bcrypt";
 import redisClient from "../config/redis.js";
 
 
+// const cookieOptions = {
+//   httpOnly: true,
+//   secure: process.env.NODE_ENV === "production",
+//   sameSite: process.env.NODE_ENV === "production" ? "strict" : "lax",
+//   maxAge: parseInt(process.env.JWT_MAX_AGE, 10) || 24 * 60 * 60 * 1000
+// };
+
 const cookieOptions = {
   httpOnly: true,
-  secure: process.env.NODE_ENV === "production",
-  sameSite: process.env.NODE_ENV === "production" ? "strict" : "lax",
-  maxAge: parseInt(process.env.JWT_MAX_AGE, 10) || 24 * 60 * 60 * 1000
+  secure: true,      // HTTPS mandatory
+  sameSite: "none",  // Cross-site cookies mandatory
+  maxAge: 24 * 60 * 60 * 1000 // 1 day
 };
 
 
@@ -130,7 +137,13 @@ const Logout = async (req, res) => {
     await redisClient.set(`token:${token}`, "blocked");
     await redisClient.expireAt(`token:${token}`, payload.exp);
 
-    res.clearCookie("token", cookieOptions);
+    // res.clearCookie("token", cookieOptions);
+    res.clearCookie("token", {
+  httpOnly: true,
+  secure: true,
+  sameSite: "none"
+});
+
 
     res.status(200).json({
       success: true,
