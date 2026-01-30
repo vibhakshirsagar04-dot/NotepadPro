@@ -13,9 +13,9 @@ import redisClient from "../config/redis.js";
 
 const cookieOptions = {
   httpOnly: true,
-  secure: true,      // HTTPS mandatory
-  sameSite: "none",  // Cross-site cookies mandatory
-  maxAge: 24 * 60 * 60 * 1000 // 1 day
+  secure: true,      // HTTPS only
+  sameSite: "none",  // Cross-site cookies
+  maxAge: 24 * 60 * 60 * 1000
 };
 
 
