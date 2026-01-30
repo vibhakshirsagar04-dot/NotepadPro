@@ -12,7 +12,7 @@ const noteRouter = express.Router();
 
 // 🔐 All routes protected
 noteRouter.post("/create", protect, createNote);
-noteRouter.get("/fetch", protect, getNotes);
+noteRouter.get("/fetch",  getNotes);
 noteRouter.put("/edit/:id", protect, updateNote);
 noteRouter.delete("/delete/:id", protect, deleteNote);
 
