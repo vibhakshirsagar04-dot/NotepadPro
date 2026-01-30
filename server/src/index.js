@@ -64,38 +64,27 @@ dotenv.config();
 
 const app = express();
 
-/* =========================
-   CORS CONFIG (IMPORTANT)
-========================= */
-app.use(
-  cors({
-    origin: [
-      'http://localhost:5173',                 // local
-      'https://your-site-name.netlify.app'     // production
-    ],
-    credentials: true
-  })
-);
+app.use(cors({
+  origin: [
+    "https://heroic-salmiakki-d44f4a.netlify.app"
+  ],
+  credentials: true,
+  methods: ["GET", "POST", "PUT", "DELETE", "OPTIONS"],
+  allowedHeaders: ["Content-Type", "Authorization"]
+}));
 
 app.use(express.json());
 app.use(cookieParser());
+app.options("*", cors());
 
-/* =========================
-   ROUTES
-========================= */
 app.use('/api/auth', authRouter);
 app.use('/notes', noteRouter);
 
-/* =========================
-   HEALTH CHECK (IMPORTANT)
-========================= */
 app.get('/', (req, res) => {
   res.send('API is running 🚀');
 });
 
-/* =========================
-   SERVER INIT
-========================= */
+
 const PORT = process.env.PORT || 5000;
 
 const InitializeConnection = async () => {
