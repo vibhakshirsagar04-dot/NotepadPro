@@ -2,7 +2,6 @@
 
 import Note from "../models/Notes.js";
 
-/* ================= CREATE NOTE ================= */
 export const createNote = async (req, res) => {
   try {
     const { title, content, category, color } = req.body;
@@ -16,7 +15,7 @@ export const createNote = async (req, res) => {
       content,
       category,
       color,
-      user: req.user._id, // ✅ MUST
+      user: req.user._id, 
     });
 
     res.status(201).json(note);
@@ -26,7 +25,6 @@ export const createNote = async (req, res) => {
   }
 };
 
-/* ================= GET USER NOTES ================= */
 export const getNotes = async (req, res) => {
   try {
     const notes = await Note.find({ user: req.user._id })
@@ -39,13 +37,13 @@ export const getNotes = async (req, res) => {
   }
 };
 
-/* ================= UPDATE NOTE ================= */
+
 export const updateNote = async (req, res) => {
   try {
     const { id } = req.params;
 
     const note = await Note.findOneAndUpdate(
-      { _id: id, user: req.user._id }, // 🔒 owner check
+      { _id: id, user: req.user._id }, 
       req.body,
       { new: true, runValidators: true }
     );
@@ -61,7 +59,6 @@ export const updateNote = async (req, res) => {
   }
 };
 
-/* ================= DELETE NOTE ================= */
 export const deleteNote = async (req, res) => {
   try {
     const { id } = req.params;

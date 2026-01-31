@@ -7,8 +7,8 @@ import redisClient from "../config/redis.js";
 
 const cookieOptions = {
   httpOnly: true,
-  secure: true,      // HTTPS only
-  sameSite: "none",  // Cross-site cookies
+  secure: true,      
+  sameSite: "none", 
   maxAge: 24 * 60 * 60 * 1000
 };
 
@@ -127,11 +127,9 @@ const Logout = async (req, res) => {
 
     const payload = jwt.verify(token, process.env.SECRET_KEY);
 
-    // Blacklist token in Redis
     await redisClient.set(`token:${token}`, "blocked");
     await redisClient.expireAt(`token:${token}`, payload.exp);
 
-    // res.clearCookie("token", cookieOptions);
     res.clearCookie("token", {
   httpOnly: true,
   secure: true,

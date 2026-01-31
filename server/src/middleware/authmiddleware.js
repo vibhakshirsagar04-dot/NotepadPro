@@ -9,7 +9,6 @@ const authMiddleware = async (req, res, next) => {
       return res.status(401).json({ message: "No token" });
     }
 
-    // Redis blacklist check
     if (redisClient?.isOpen) {
       const blocked = await redisClient.get(`token:${token}`);
       if (blocked) {
@@ -20,7 +19,7 @@ const authMiddleware = async (req, res, next) => {
     const decoded = jwt.verify(token, process.env.SECRET_KEY);
     req.user = decoded;
 
-    next(); // 🔥 VERY IMPORTANT
+    next(); 
 
   } catch (err) {
     return res.status(401).json({ message: "Unauthorized" });

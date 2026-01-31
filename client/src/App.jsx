@@ -11,7 +11,6 @@ import NotepadApp from "./pages/Notepad";
 function App() {
   const { isAuthenticated, loading } = useSelector((state) => state.auth);
 
-  // Optional: wait until auth check finishes
   if (loading) {
     return <div className="text-white text-center mt-20">Checking auth...</div>;
   }

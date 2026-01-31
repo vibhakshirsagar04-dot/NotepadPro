@@ -30,11 +30,6 @@ const [formData, setFormData] = useState({
   fetchNotes();
 }, []);
 
-
-
-
-
-  // Create new note
   const createNote = async () => {
   if (!formData.title.trim() || !formData.content.trim()) return;
 
@@ -48,7 +43,6 @@ const [formData, setFormData] = useState({
 };
 
 
-  // Update existing note
   const updateNote = async () => {
   try {
     const res = await axiosClient.put(
@@ -67,7 +61,6 @@ const [formData, setFormData] = useState({
 };
 
 
-  // Delete note
 const deleteNote = async (id) => {
   try {
     await axiosClient.delete(`/notes/delete/${id}`);
@@ -77,7 +70,6 @@ const deleteNote = async (id) => {
   }
 };
 
-  // Edit note
   const editNote = (note) => {
   setCurrentNoteId(note._id);
   setFormData({
@@ -90,7 +82,6 @@ const deleteNote = async (id) => {
 };
 
 
-  // Reset form
   const resetForm = () => {
   setFormData({
     title: '',
@@ -103,7 +94,6 @@ const deleteNote = async (id) => {
 };
 
 
-  // Filter notes based on search query
 const filteredNotes = notes.filter(note =>
   (note.title ?? '').toLowerCase().includes(searchQuery.toLowerCase()) ||
   (note.content ?? '').toLowerCase().includes(searchQuery.toLowerCase()) ||

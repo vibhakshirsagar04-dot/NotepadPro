@@ -9,7 +9,6 @@ import {
 import authMiddleware from '../middleware/authmiddleware.js'
 const noteRouter = express.Router();
 
-// 🔐 All routes protected
 noteRouter.post("/create", authMiddleware, createNote);
 noteRouter.get("/fetch", authMiddleware,  getNotes);
 noteRouter.put("/edit/:id", authMiddleware, updateNote);
